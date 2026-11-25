@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iBOK - Internet Banking Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #f8f9fa; background-image: radial-gradient(#e0e0e0 1px, transparent 1px); background-size: 20px 20px; min-height: 100vh; display: flex; flex-direction: column; }
+        
+        /* الهيدر */
+        .header { background-color: #b91c23; padding: 15px 20px; display: flex; align-items: center; justify-content: space-between; color: white; position: relative; }
+        .header::after { content: ''; position: absolute; top: 0; right: 0; width: 45%; height: 100%; background-color: #dcb310; z-index: 0; }
+        .header-content { display: flex; align-items: center; justify-content: space-between; width: 100%; max-width: 800px; margin: 0 auto; z-index: 1; }
+        .logo-area { display: flex; align-items: center; gap: 10px; }
+        .logo-area h1 { font-size: 24px; font-weight: bold; }
+        .divider { height: 30px; width: 2px; background-color: rgba(255,255,255,0.5); margin: 0 10px; }
+        .header-titles h2 { font-size: 14px; font-weight: 600; }
+        .header-titles p { font-size: 12px; color: #dcb310; font-weight: 600; }
+        .header-right-text { color: #fff; font-size: 16px; font-weight: 500; text-align: right; max-width: 200px; line-height: 1.2; }
+        
+        /* المحتوى */
+        .main-container { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 30px 15px; width: 100%; max-width: 500px; margin: 0 auto; }
+        .page-title { font-size: 20px; color: #b91c23; margin-bottom: 20px; text-align: left; width: 100%; font-weight: 600; }
+        .login-card { background-color: white; border-radius: 8px; padding: 30px 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 100%; }
+        .login-card h3 { font-size: 18px; color: #333; text-align: center; margin-bottom: 30px; font-weight: 500; position: relative; display: inline-block; left: 50%; transform: translateX(-50%); }
+        .login-card h3::after { content: ''; position: absolute; bottom: -10px; left: 0; width: 100%; height: 2px; background-color: #b91c23; }
+        
+        /* الحقول */
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; font-size: 14px; color: #666; margin-bottom: 8px; }
+        .form-group input[type="text"], .form-group input[type="password"] { width: 100%; padding: 12px 15px; border: 1px solid #999; border-radius: 5px; font-size: 16px; outline: none; }
+        .password-wrapper { position: relative; }
+        .eye-icon { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: #666; cursor: pointer; font-size: 18px; }
+        .forgot-password { display: block; text-align: right; font-size: 13px; color: #666; text-decoration: none; margin-top: -10px; margin-bottom: 20px; }
+        
+        /* التشيك بوكس */
+        .terms-checkbox-container { display: flex; align-items: center; gap: 10px; margin-bottom: 25px; }
+        .terms-checkbox-container input[type="checkbox"] { width: 18px; height: 18px; cursor: pointer; }
+        .terms-checkbox-container label { font-size: 14px; color: #666; cursor: pointer; }
+        
+        /* الزرار والفوتر */
+        .btn-submit { width: 100%; padding: 14px; background-color: #f09b9e; color: white; border: none; border-radius: 5px; font-size: 16px; font-weight: 500; cursor: pointer; }
+        
+        /* الفوتر الجديد مع الأيقونات */
+        .footer { background-color: #333; color: white; text-align: center; padding: 20px 15px 15px; font-size: 14px; font-weight: bold; border-top: 3px solid #b91c23; margin-top: auto; }
+        .social-icons { display: flex; justify-content: center; gap: 15px; margin-top: 15px; }
+        .social-icons a { display: flex; align-items: center; justify-content: center; width: 35px; height: 35px; background-color: #555; color: #fff; border-radius: 50%; text-decoration: none; font-size: 16px; transition: background 0.3s; }
+        .social-icons a:hover { background-color: #b91c23; }
+        .social-icons a.bok-icon { background-color: #fff; padding: 2px; }
+        .social-icons a.bok-icon img { width: 100%; height: 100%; border-radius: 50%; }
+        
+        /* المودال (نافذة الشروط) */
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); z-index: 1000; justify-content: center; align-items: center; padding: 20px; }
+        .modal-content { background-color: #fff; border-radius: 8px; width: 100%; max-width: 500px; max-height: 85vh; display: flex; flex-direction: column; }
+        .modal-header { background-color: #b91c23; color: white; padding: 15px; text-align: center; border-top-left-radius: 8px; border-top-right-radius: 8px; }
+        .modal-header h2 { font-size: 18px; font-weight: normal; }
+        .modal-body { padding: 20px; overflow-y: auto; font-size: 14px; line-height: 1.6; color: #333; text-align: justify; }
+        .modal-body p { margin-bottom: 15px; }
+        .modal-footer { padding: 15px; background-color: #f0f0f0; display: flex; justify-content: flex-end; gap: 15px; border-bottom-left-radius: 8px; border-bottom-right-radius: 8px; }
+        .btn-modal { padding: 10px 25px; border: none; border-radius: 4px; font-size: 15px; cursor: pointer; font-weight: 500; }
+        .btn-disagree { background-color: #6c757d; color: white; }
+        .btn-agree { background-color: #b91c23; color: white; }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo-area">
+                <h1>iBOK</h1><span style="font-size: 16px; font-weight: bold;">اي بوك</span>
+                <div class="divider"></div>
+                <div class="header-titles"><h2>الخدمات المصرفية عبر الإنترنت</h2><p>Internet Banking Services</p></div>
+            </div>
+            <div class="header-right-text">Welcome to<br>iBOK Internet Banking</div>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <h2 class="page-title">Internet Banking - Login</h2>
+        <div class="login-card">
+            <h3>Please enter the details</h3>
+            <form id="loginForm" onsubmit="validateLogin(event)">
+                <div class="form-group"><label>User ID:</label><input type="text" placeholder="Enter User ID"></div>
+                <div class="form-group"><label>Password:</label><div class="password-wrapper"><input type="password" placeholder="Enter password"><i class="fa-regular fa-eye-slash eye-icon"></i></div></div>
+                <a href="#" class="forgot-password">Forgot Password?</a>
+                
+                <div class="terms-checkbox-container">
+                    <input type="checkbox" id="termsCheckbox">
+                    <label for="termsCheckbox" onclick="openTerms(event)">Terms and Conditions</label>
+                </div>
+                
+                <button type="submit" class="btn-submit">Login</button>
+            </form>
+        </div>
+    </main>
+
+    <footer class="footer">
+        iBOK | Bank of Khartoum 2024
+        <!-- أيقونات السوشيال ميديا زي آخر صورة -->
+        <div class="social-icons">
+            <a href="#" class="bok-icon"><img src="i9oXDFd8_400x400.jpg" alt="BOK"></a>
+            <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+        </div>
+    </footer>
+
+    <!-- نافذة الشروط كاملة -->
+    <div id="termsModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header"><h2>Terms & Conditions</h2></div>
+            <div class="modal-body">
+                <p><strong>1. Terms and Conditions of Internet-banking Service:</strong></p>
+                <p>1.1 This document is subject to all internet banking terms and conditions issued by the Bank of Khartoum (the ""Bank""), and will be interpreted in accordance with Sudanese laws and regulations issued by CBOS,</p>
+                <p>1.2 These terms and conditions are subject to the Memorandum of Association of the Bank of Khartoum (the ""Bank"") as well as its Articles of Association. They are executed according to the Bank's Articles of Association, internal policies and regulations and the legal opinions issued by the Bank's Sharria' Board, to the policies, regulations, instructions and directives of the Central Bank of Sudan (""CBOS"") and to the applicable laws of Sudan as these terms and conditions are not inconsistent with the Islamic Sharria' principles and teachings nor with those of the applicable laws.</p>
+                <p>1.3 The Bank may provide Internet Banking Service for any customer subscribed on bankak service.</p>
+                <p>1.4 The Internet Banking Service allows the Customer to effect banking transactions through the internet including -except cash withdrawal- deduction from the account, credit, transferring money, obtaining bank statements and other services that the Bank can provide through the internet from time to time.</p>
+                <p>1.5 The Customer agrees and shall held liable for using same Bankak login credentials for login the Internet Banking Services platform with an additional step of verifying OTP one-time password when logging and executing any financial transactions.</p>
+                <p><strong>2. Terms of Use of Internet Banking Service:</strong></p>
+                <p>2.1. The transactions through the Internet Banking Service-accepted by the Bank- shall be affected upon request by the Customer.</p>
+                <p>2.2 The Bank has the right to deduct the prescribed fees on these transactions directly from the Customer's account. The Bank may amend the fees from time to time. The Customer should check before doing any transaction to ascertain that his credit covers the transaction together with the prescribed fees.</p>
+                <p>2.3 The Bank shall not be held liable if the amount of the transaction has decreased as a result of deducting the applicable fees.</p>
+                <p>2.4. The Bank shall not be held liable in case the Customer cannot access the Internet Banking Service due to a malfunction in the network, a power outage or any general outage or as a result of seizing the Customer's account or issuance of garnishee order by a court or any other competent authority that has such power by virtue of the law, or as result of set off or netting exercised by the Bank to settle indebtedness of the Customer towards the Bank.</p>
+                <p>2.5. The Bank shall not be held liable for any loss or damage incurred by the Customer as a result of using Internet Banking Service to settle bills or charges to any other body;</p>
+                <p>2.6 the Customer alone shall be responsible of the accuracy of the information and date s/he enters and of the amendment of fees, charges, information or data. The Customer should settle any dispute about the amounts transferred or that deducted with that concerned body.</p>
+                <p>2.7 The Customer shall indemnify and hold the Bank harmless of any loss incurred. The Customer agrees that the records kept by the Bank for the transactions effected by the Customer are conclusive evidence as to the trueness and accuracy of the transactions. If any dispute arises between the Bank and the Customer about an amount written in both words shall prevail.</p>
+                <p>2.8. The Customer shall keep the password safe and shall not disclose them to any other person or allow him to use them. The Customer shall notify the Bank immediately in case of loss or theft or in case s/he knows that any other person has obtained the password; in such a case the Bank shall not be liable for any transaction effected before the Customer notifies the Bank. The Customer shall indemnify the Bank against any loss incurred as a result of failure to notify the Bank of such incident.</p>
+                <p>2.9. The Bank shall not be held liable of any use, entry or hacking of Customer account through the internet by any third party by using any cheating or any malicious means; the Bank is exempted from any liabilities, claims, obligations or rights that may arise from or in relation to the use of the Internet Banking Service in connection to the Customer's account, information and data related to the transactions that transmitted through the internet.</p>
+                <p>2.10. The Customer agrees that the Bank has the right at any time to halt the Internet Banking Service without conveying any reasons for this and without prior notification.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-modal btn-disagree" onclick="closeTerms()">Disagree</button>
+                <button type="button" class="btn-modal btn-agree" onclick="agreeTerms()">Agree</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openTerms(event) { event.preventDefault(); document.getElementById('termsModal').style.display = 'flex'; }
+        function closeTerms() { document.getElementById('termsModal').style.display = 'none'; document.getElementById('termsCheckbox').checked = false; }
+        function agreeTerms() { document.getElementById('termsModal').style.display = 'none'; document.getElementById('termsCheckbox').checked = true; }
+        function validateLogin(event) {
+            event.preventDefault();
+            if (!document.getElementById('termsCheckbox').checked) {
+                alert("Please read and agree to the Terms and Conditions before logging in.");
+            } else {
+                alert("Login Successful! (Demo)");
+            }
+        }
+    </script>
+</body>
+</html>
