@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Bank of Khartoum - Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; -webkit-tap-highlight-color: transparent; }
+        body { background-color: #f8f9fa; background-image: linear-gradient(45deg, #f0f0f0 25%, transparent 25%, transparent 75%, #f0f0f0 75%, #f0f0f0), linear-gradient(45deg, #f0f0f0 25%, transparent 25%, transparent 75%, #f0f0f0 75%, #f0f0f0); background-size: 20px 20px; background-position: 0 0, 10px 10px; min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
+        .header { background: linear-gradient(to right, #da291c 30%, #fadb14 85%); padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; color: white; height: 85px; }
+        .header-logo { display: flex; align-items: center; gap: 12px; font-weight: 600; font-size: 13px; color: #fff; line-height: 1.2; }
+        .logo-icon { width: 35px; height: 35px; background-color: #4caf50; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 2px solid #fff; box-shadow: 0 0 5px rgba(0,0,0,0.2); }
+        .logo-icon::after { content: ''; width: 18px; height: 18px; background: linear-gradient(45deg, #fadb14 50%, #fff 50%); border-radius: 50%; }
+        .header-title { font-size: 12px; font-weight: 500; text-align: right; }
+        .main-container { flex: 1; display: flex; flex-direction: column; padding: 25px 20px 25px 80px; position: relative; z-index: 1; }
+        .login-card { background-color: white; border-radius: 6px; padding: 25px 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.06); margin-bottom: 20px; text-align: center; width: 100%; max-width: 420px; margin-left: auto; margin-right: auto; border: 1px solid #eaeaea; position: relative; }
+        .floating-action-ring { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 70px; height: 70px; border: 5px solid #4caf50; border-radius: 50%; display: flex; align-items: center; justify-content: center; background-color: rgba(76, 175, 80, 0.1); z-index: 10; box-shadow: 0 0 20px rgba(76, 175, 80, 0.3); animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; } 50% { transform: translate(-50%, -50%) scale(1.05); opacity: 1; } 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; } }
+        .floating-action-ring::after { content: ''; width: 40px; height: 40px; background-color: #4caf50; border-radius: 50%; display: flex; align-items: center; justify-content: center; position: absolute; }
+        .floating-action-ring::before { content: ''; width: 15px; height: 15px; background-color: #fff; border-radius: 50%; position: absolute; z-index: 1; }
+        .login-card h3 { font-size: 14px; color: #333; margin-bottom: 20px; font-weight: 600; }
+        .btn-login { display: flex; justify-content: space-between; align-items: center; width: 100%; background-color: #da291c; color: white; border: none; padding: 14px 18px; border-radius: 4px; font-size: 13px; font-weight: 500; margin-bottom: 12px; cursor: pointer; transition: background-color 0.2s; position: relative; z-index: 5; }
+        .btn-login:hover { background-color: #b71c1c; }
+        .btn-login .btn-icon-left { background-color: #fff; color: #da291c; padding: 3px 6px; border-radius: 3px; font-size: 12px; margin-left: 10px; }
+        .btn-login .arrow-right { font-size: 12px; }
+        .icon-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 25px; width: 100%; max-width: 420px; margin-left: auto; margin-right: auto; position: relative; z-index: 5; }
+        .icon-box { background-color: white; border-radius: 6px; padding: 12px 5px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.04); font-size: 9px; color: #444; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; cursor: pointer; border: 1px solid #eee; line-height: 1.2; }
+        .icon-box i { font-size: 16px; color: #da291c; }
+        .building-image { width: 100%; max-width: 420px; margin: 0 auto; border-radius: 6px; overflow: hidden; position: relative; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .building-image img { width: 100%; height: 220px; object-fit: cover; display: block; }
+        .image-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(15, 15, 15, 0.7); text-align: center; padding: 20px 15px; }
+        .image-overlay h4 { color: #fadb14; font-size: 15px; margin-bottom: 6px; font-weight: 600; }
+        .image-overlay p { color: #fff; font-size: 10px; line-height: 1.5; font-weight: 300; }
+        .floating-menu { position: fixed; left: 10px; top: 50%; transform: translateY(-50%); background-color: #333; border-radius: 30px; padding: 15px 8px; display: flex; flex-direction: column; align-items: center; gap: 20px; z-index: 100; box-shadow: 0 6px 20px rgba(0,0,0,0.5); border: 1px solid #444; width: 50px; }
+        .menu-item { color: #d1d1d1; font-size: 16px; cursor: pointer; opacity: 0.8; width: 35px; height: 35px; display: flex; align-items: center; justify-content: center; position: relative; }
+        .menu-item:not(:last-child)::after { content: ''; position: absolute; bottom: -12px; left: 50%; transform: translateX(-50%); width: 20px; height: 1px; background-color: #555; }
+        .menu-item.active { color: #4caf50; opacity: 1; border: 2px solid #4caf50; border-radius: 50%; width: 42px; height: 42px; font-size: 18px; background-color: #1a1a1a; box-shadow: 0 0 10px rgba(76, 175, 80, 0.4); margin-bottom: 5px; }
+        .menu-item:last-child { margin-top: 10px; font-size: 18px; }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-logo">
+            <div class="logo-icon"></div>
+            <div>بنك الخرطوم<br><span style="font-size: 9px; font-weight: 400;">Bank of Khartoum</span></div>
+        </div>
+        <div class="header-title">Welcome to BOK Internet Banking</div>
+    </header>
+
+    <div class="floating-menu">
+        <div class="menu-item active"><i class="fa-solid fa-play" style="margin-left:2px;"></i></div>
+        <div class="menu-item"><i class="fa-regular fa-floppy-disk"></i></div>
+        <div class="menu-item"><i class="fa-solid fa-gear"></i></div>
+        <div class="menu-item"><i class="fa-regular fa-eye"></i></div>
+        <div class="menu-item"><i class="fa-solid fa-house"></i></div>
+        <div class="menu-item"><i class="fa-solid fa-chevron-up"></i></div>
+    </div>
+
+    <main class="main-container">
+        <div class="login-card">
+            <div class="floating-action-ring"></div>
+            <h3>Login to</h3>
+            <button class="btn-login">
+                <div style="display: flex; align-items: center;">
+                    <span class="btn-icon-left"><i class="fa-solid fa-building-columns"></i></span>
+                    <span>iBOK Login</span>
+                </div>
+                <i class="fa-solid fa-arrow-right arrow-right"></i>
+            </button>
+            <button class="btn-login">
+                <div style="display: flex; align-items: center;">
+                    <span class="btn-icon-left"><i class="fa-solid fa-mobile-screen"></i></span>
+                    <span>iBOK+ Login</span>
+                </div>
+                <i class="fa-solid fa-arrow-right arrow-right"></i>
+            </button>
+        </div>
+
+        <div class="icon-grid">
+            <div class="icon-box"><i class="fa-solid fa-user"></i><span>About Us</span></div>
+            <div class="icon-box"><i class="fa-solid fa-file-contract"></i><span>Terms and<br>Conditions</span></div>
+            <div class="icon-box"><i class="fa-solid fa-location-dot"></i><span>Branches /<br>ATMs</span></div>
+            <div class="icon-box"><i class="fa-solid fa-phone-volume"></i><span>Contact Us</span></div>
+        </div>
+
+        <div class="building-image">
+            <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=800&auto=format&fit=crop" alt="Bank Building">
+            <div class="image-overlay">
+                <h4>اي بوك و اي بوك بلس</h4>
+                <p>الخدمات المصرفية عبر الانترنت من بنك الخرطوم تتيح هذه الخدمة الاطلاع على كشف الحسابات وتحويل الأموال والمدفوعات</p>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
