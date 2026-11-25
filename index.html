@@ -14,35 +14,87 @@
         }
 
         body {
-            background-color: #fafafa;
-            /* خلفية هندسية خفيفة جداً */
+            background-color: #f8f9fa;
             background-image: 
-                linear-gradient(45deg, #f0f0f0 25%, transparent 25%, transparent 75%, #f0f0f0 75%, #f0f0f0),
-                linear-gradient(45deg, #f0f0f0 25%, transparent 25%, transparent 75%, #f0f0f0 75%, #f0f0f0);
-            background-size: 20px 20px;
-            background-position: 0 0, 10px 10px;
+                linear-gradient(30deg, #ffffff 12%, transparent 12.5%, transparent 87%, #ffffff 87.5%, #ffffff),
+                linear-gradient(150deg, #ffffff 12%, transparent 12.5%, transparent 87%, #ffffff 87.5%, #ffffff),
+                linear-gradient(30deg, #ffffff 12%, transparent 12.5%, transparent 87%, #ffffff 87.5%, #ffffff),
+                linear-gradient(150deg, #ffffff 12%, transparent 12.5%, transparent 87%, #ffffff 87.5%, #ffffff),
+                linear-gradient(60deg, #f0f3f1 25%, transparent 25.5%, transparent 75%, #f0f3f1 75%, #f0f3f1),
+                linear-gradient(60deg, #f0f3f1 25%, transparent 25.5%, transparent 75%, #f0f3f1 75%, #f0f3f1);
+            background-size: 40px 70px;
+            background-position: 0 0, 0 0, 20px 35px, 20px 35px, 0 0, 20px 35px;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
         }
 
-        /* ---------------- الهيدر (أحمر سادة والشعار في النص) ---------------- */
+        /* ---------------- الهيدر المائل (أحمر وأصفر) ---------------- */
         .header {
-            background-color: #d31a22; /* اللون الأحمر */
-            padding: 15px 20px;
+            position: relative;
+            height: 70px;
+            background-color: #dcb310; /* اللون الأصفر */
             display: flex;
-            justify-content: center; /* توسيط الشعار */
+            justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 0 15px;
+            overflow: hidden;
         }
 
-        .header-logo {
-            height: 45px;
+        /* الجزء الأحمر المائل */
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 45%; 
+            height: 100%;
+            background-color: #da291c; /* اللون الأحمر */
+            clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%); 
+            z-index: 1;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 2; 
+        }
+
+        .logo-img {
+            height: 35px;
             width: auto;
             object-fit: contain;
         }
 
-        /* ---------------- المحتوى الرئيسي ---------------- */
+        .header-text {
+            display: flex;
+            flex-direction: column;
+            color: #fff;
+        }
+
+        .header-text h1 {
+            font-size: 14px;
+            font-weight: 700;
+            line-height: 1.1;
+        }
+
+        .header-text span {
+            font-size: 8px;
+            font-weight: 400;
+        }
+
+        .header-right {
+            color: #fff;
+            font-size: 11px;
+            font-weight: 500;
+            z-index: 2;
+            text-align: right;
+            max-width: 120px;
+            line-height: 1.3;
+        }
+
+        /* ---------------- المحتوى ---------------- */
         .main-container {
             flex: 1;
             display: flex;
@@ -50,172 +102,152 @@
             align-items: center;
             padding: 20px 15px;
             width: 100%;
-            max-width: 500px;
+            max-width: 450px; /* عرض مناسب للموبايل */
             margin: 0 auto;
         }
 
         /* بطاقة تسجيل الدخول */
         .login-card {
             background-color: white;
-            border-radius: 10px;
-            padding: 25px 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            margin-bottom: 20px;
+            border-radius: 6px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            margin-bottom: 15px;
             text-align: center;
             width: 100%;
+            border: 1px solid #eaeaea;
         }
 
         .login-card h3 {
-            font-size: 18px;
+            font-size: 14px;
             color: #333;
-            margin-bottom: 25px;
+            margin-bottom: 15px;
             font-weight: 500;
         }
 
-        /* الأزرار الحمراء */
         .btn-login {
             display: flex;
             justify-content: space-between;
             align-items: center;
             width: 100%;
-            background: linear-gradient(to right, #d31a22, #b31217); /* تدرج أحمر */
+            background-color: #da291c;
             color: white;
             border: none;
-            padding: 15px 20px;
-            border-radius: 6px;
-            font-size: 16px;
+            padding: 10px 12px;
+            border-radius: 4px;
+            font-size: 13px;
             font-weight: 500;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             cursor: pointer;
+        }
+        
+        /* المربع الأبيض بتاع الأيقونة */
+        .btn-icon-left {
+            background-color: #fff;
+            color: #da291c;
+            padding: 4px 6px;
+            border-radius: 3px;
+            font-size: 12px;
+            margin-right: 10px;
         }
 
         .btn-login-content {
             display: flex; 
             align-items: center;
-            gap: 15px; /* مسافة بين الأيقونة والكلام */
-        }
-
-        .btn-login-content i {
-            font-size: 20px; /* حجم الأيقونة البيضاء */
         }
 
         .btn-login .fa-arrow-right {
-            font-size: 16px;
+            font-size: 12px;
         }
 
-        /* ---------------- شبكة الصناديق الأربعة ---------------- */
+        /* ---------------- الصناديق الأربعة (4 بالعرض دايماً) ---------------- */
         .icon-grid {
             display: grid;
-            grid-template-columns: 1fr; /* في الموبايل تحت بعض */
-            gap: 15px;
-            width: 100%;
+            grid-template-columns: repeat(4, 1fr); /* 4 أعمدة حتى في الموبايل */
+            gap: 8px;
             margin-bottom: 20px;
+            width: 100%;
         }
 
         .icon-box {
             background-color: white;
-            border-radius: 10px;
-            padding: 20px 10px; /* مساحة داخلية معقولة مش ضخمة */
+            border-radius: 6px;
+            padding: 10px 4px;
             text-align: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.04);
-            font-size: 14px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+            font-size: 8px;
             color: #555;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            cursor: pointer;
+            gap: 6px;
+            border: 1px solid #eaeaea;
+            height: 100%;
+            line-height: 1.2;
         }
 
-        /* تصميم الأيقونات المركبة (شخص + (i) / ورقة + صح / دبوس + بيضاوي) */
-        .custom-icon {
+        .icon-box i {
+            font-size: 16px;
+            color: #da291c;
+        }
+
+        /* ---------------- صورة المبنى (اللي كانت ناقصة) ---------------- */
+        .building-image {
+            width: 100%;
+            border-radius: 6px;
+            overflow: hidden;
             position: relative;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
-        .custom-icon .main-icon {
-            font-size: 30px;
-            color: #222; /* لون أسود */
+        .building-image img {
+            width: 100%;
+            height: auto;
+            display: block;
         }
 
-        .custom-icon .badge {
+        /* النص فوق الصورة */
+        .image-overlay {
             position: absolute;
-            bottom: -2px;
-            right: -5px;
-            background-color: #d31a22;
-            color: white;
-            border-radius: 50%;
-            width: 18px;
-            height: 18px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 10px;
-        }
-
-        /* أيقونة الاتصال (تليفون + ظرف) */
-        .contact-icon {
-            position: relative;
-            width: 40px;
-            height: 40px;
-        }
-        .contact-icon .fa-phone {
-            font-size: 28px;
-            color: #222;
-            position: absolute;
-            left: 0;
             bottom: 0;
-        }
-        .contact-icon .fa-envelope {
-            font-size: 20px;
-            color: #d31a22;
-            position: absolute;
+            left: 0;
             right: 0;
-            top: 5px;
+            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.6) 50%, transparent 100%);
+            text-align: center;
+            padding: 25px 15px 15px 15px;
         }
 
-        /* البيضاوي اللي تحت دبوس الموقع */
-        .pin-oval {
-            position: relative;
-            display: inline-block;
-            margin-bottom: 5px;
+        .image-overlay h4 {
+            color: #dcb310;
+            font-size: 16px;
+            margin-bottom: 6px;
+            font-weight: 700;
         }
-        .pin-oval .fa-location-dot {
-            font-size: 30px;
-            color: #222;
-            z-index: 2;
-            position: relative;
-        }
-        .pin-oval::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 25px;
-            height: 8px;
-            border: 2px solid #d31a22;
-            border-radius: 50%;
-            z-index: 1;
+
+        .image-overlay p {
+            color: #fff;
+            font-size: 10px;
+            line-height: 1.5;
+            font-weight: 400;
         }
 
         /* ---------------- تظبيط اللابتوب ---------------- */
         @media (min-width: 768px) {
-            .main-container {
-                padding-top: 40px;
+            .header {
+                height: 80px;
+                padding: 0 30px;
             }
-            .icon-grid {
-                /* في اللابتوب 4 بالعرض */
-                grid-template-columns: repeat(4, 1fr); 
+            .header::before {
+                width: 35%; /* تعديل الميلان */
             }
-            .icon-box {
-                padding: 25px 10px;
-            }
+            .header-text h1 { font-size: 18px; }
+            .header-text span { font-size: 10px; }
+            .header-right { font-size: 14px; max-width: 200px; }
+            .main-container { padding-top: 40px; }
+            .btn-login { padding: 14px 18px; font-size: 14px; }
+            .icon-box { padding: 15px 5px; font-size: 10px; }
+            .icon-box i { font-size: 20px; }
         }
     </style>
 </head>
@@ -223,8 +255,16 @@
 
     <!-- الهيدر -->
     <header class="header">
-        <!-- الصورة اللي أنت رفعتها، لو عايز الشعار الكامل زي الموقع الأصلي غير الصورة -->
-        <img src="i9oXDFd8_400x400.jpg" alt="Bank of Khartoum Logo" class="header-logo">
+        <div class="header-left">
+            <img src="i9oXDFd8_400x400.jpg" alt="BOK Logo" class="logo-img">
+            <div class="header-text">
+                <h1>بنك الخرطوم</h1>
+                <span>Bank of Khartoum</span>
+            </div>
+        </div>
+        <div class="header-right">
+            Welcome to BOK Internet Banking
+        </div>
     </header>
 
     <!-- المحتوى -->
@@ -235,7 +275,7 @@
             
             <button class="btn-login">
                 <div class="btn-login-content">
-                    <i class="fa-solid fa-users"></i> <!-- أيقونة 3 أشخاص -->
+                    <span class="btn-icon-left"><i class="fa-solid fa-building-columns"></i></span>
                     <span>iBOK Login</span>
                 </div>
                 <i class="fa-solid fa-arrow-right"></i>
@@ -243,7 +283,7 @@
             
             <button class="btn-login" style="margin-bottom: 0;">
                 <div class="btn-login-content">
-                    <i class="fa-solid fa-building"></i> <!-- أيقونة مبنى -->
+                    <span class="btn-icon-left"><i class="fa-solid fa-mobile-screen"></i></span>
                     <span>iBOK+ Login</span>
                 </div>
                 <i class="fa-solid fa-arrow-right"></i>
@@ -253,34 +293,29 @@
         <!-- الصناديق الأربعة -->
         <div class="icon-grid">
             <div class="icon-box">
-                <div class="custom-icon">
-                    <i class="fa-solid fa-user main-icon"></i>
-                    <span class="badge"><i class="fa-solid fa-info"></i></span>
-                </div>
+                <i class="fa-solid fa-user"></i>
                 <span>About Us</span>
             </div>
-
             <div class="icon-box">
-                <div class="custom-icon">
-                    <i class="fa-solid fa-file-lines main-icon"></i>
-                    <span class="badge"><i class="fa-solid fa-check"></i></span>
-                </div>
-                <span>Terms and Conditions</span>
+                <i class="fa-solid fa-file-contract"></i>
+                <span>Terms and<br>Conditions</span>
             </div>
-
             <div class="icon-box">
-                <div class="pin-oval">
-                    <i class="fa-solid fa-location-dot"></i>
-                </div>
-                <span>Branches / ATMs</span>
+                <i class="fa-solid fa-location-dot"></i>
+                <span>Branches /<br>ATMs</span>
             </div>
-
             <div class="icon-box">
-                <div class="contact-icon">
-                    <i class="fa-solid fa-phone"></i>
-                    <i class="fa-solid fa-envelope"></i>
-                </div>
+                <i class="fa-solid fa-phone-volume"></i>
                 <span>Contact Us</span>
+            </div>
+        </div>
+
+        <!-- صورة المبنى -->
+        <div class="building-image">
+            <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=800&auto=format&fit=crop" alt="Bank Building">
+            <div class="image-overlay">
+                <h4>اي بوك و اي بوك بلس</h4>
+                <p>الخدمات المصرفية عبر الانترنت من بنك الخرطوم تتيح هذه الخدمة الاطلاع على كشف الحسابات وتحويل الأموال والمدفوعات</p>
             </div>
         </div>
 
