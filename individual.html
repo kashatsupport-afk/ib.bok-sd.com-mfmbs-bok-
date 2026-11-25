@@ -85,9 +85,10 @@
                 <div class="form-group"><label>Password:</label><div class="password-wrapper"><input type="password" placeholder="Enter password"><i class="fa-regular fa-eye-slash eye-icon"></i></div></div>
                 <a href="#" class="forgot-password">Forgot Password?</a>
                 
+                <!-- التعديل هنا: الـ label ملهاش أي onclick، والـ checkbox بس هو اللي بيفتح -->
                 <div class="terms-checkbox-container">
-                    <input type="checkbox" id="termsCheckbox">
-                    <label for="termsCheckbox" onclick="openTerms(event)">Terms and Conditions</label>
+                    <input type="checkbox" id="termsCheckbox" onclick="openTerms(event)">
+                    <label for="termsCheckbox">Terms and Conditions</label>
                 </div>
                 
                 <button type="submit" class="btn-submit">Login</button>
@@ -97,11 +98,10 @@
 
     <footer class="footer">
         iBOK | Bank of Khartoum 2024
-        <!-- أيقونات السوشيال ميديا زي آخر صورة -->
         <div class="social-icons">
             <a href="#" class="bok-icon"><img src="i9oXDFd8_400x400.jpg" alt="BOK"></a>
             <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
-            <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="#"><i class="fa-brands fa-twitter"></i></a>
             <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
         </div>
     </footer>
@@ -137,9 +137,28 @@
     </div>
 
     <script>
-        function openTerms(event) { event.preventDefault(); document.getElementById('termsModal').style.display = 'flex'; }
-        function closeTerms() { document.getElementById('termsModal').style.display = 'none'; document.getElementById('termsCheckbox').checked = false; }
-        function agreeTerms() { document.getElementById('termsModal').style.display = 'none'; document.getElementById('termsCheckbox').checked = true; }
+        // دالة فتح الشروط (بتشتغل بس لما تدوس على المربع)
+        function openTerms(event) { 
+            event.preventDefault(); 
+            // أول ما تدوس على المربع، بنعرض الشروط
+            document.getElementById('termsModal').style.display = 'flex'; 
+            // وبعدين بنشيل علامة الصح لحد ما يوافق
+            document.getElementById('termsCheckbox').checked = false; 
+        }
+
+        // دالة إغلاق (عدم الموافقة)
+        function closeTerms() { 
+            document.getElementById('termsModal').style.display = 'none'; 
+            document.getElementById('termsCheckbox').checked = false; 
+        }
+
+        // دالة الموافقة (هي اللي بتعلم علامة الصح)
+        function agreeTerms() { 
+            document.getElementById('termsModal').style.display = 'none'; 
+            document.getElementById('termsCheckbox').checked = true; 
+        }
+
+        // دالة التحقق من الدخول
         function validateLogin(event) {
             event.preventDefault();
             if (!document.getElementById('termsCheckbox').checked) {
