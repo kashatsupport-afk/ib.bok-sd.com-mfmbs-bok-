@@ -139,8 +139,13 @@
             font-weight: 500;
             margin-bottom: 10px;
             cursor: pointer;
+            transition: background-color 0.2s;
         }
         
+        .btn-login:hover {
+            background-color: #b71c1c;
+        }
+
         /* المربع الأبيض بتاع الأيقونة */
         .btn-icon-left {
             background-color: #fff;
@@ -192,7 +197,7 @@
             color: #da291c;
         }
 
-        /* ---------------- صورة المبنى (اللي كانت ناقصة) ---------------- */
+        /* ---------------- صورة المبنى ---------------- */
         .building-image {
             width: 100%;
             border-radius: 6px;
@@ -281,7 +286,8 @@
                 <i class="fa-solid fa-arrow-right"></i>
             </button>
             
-            <button class="btn-login" style="margin-bottom: 0;">
+            <!-- تم إضافة onclick هنا عشان ينقلك لصفحة corporate.html -->
+            <button class="btn-login" onclick="window.location.href='corporate.html'" style="margin-bottom: 0;">
                 <div class="btn-login-content">
                     <span class="btn-icon-left"><i class="fa-solid fa-mobile-screen"></i></span>
                     <span>iBOK+ Login</span>
