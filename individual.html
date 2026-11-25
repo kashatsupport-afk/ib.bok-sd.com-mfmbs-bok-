@@ -8,8 +8,6 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background-color: #f8f9fa; background-image: radial-gradient(#e0e0e0 1px, transparent 1px); background-size: 20px 20px; min-height: 100vh; display: flex; flex-direction: column; }
-        
-        /* الهيدر */
         .header { background-color: #b91c23; padding: 15px 20px; display: flex; align-items: center; justify-content: space-between; color: white; position: relative; }
         .header::after { content: ''; position: absolute; top: 0; right: 0; width: 45%; height: 100%; background-color: #dcb310; z-index: 0; }
         .header-content { display: flex; align-items: center; justify-content: space-between; width: 100%; max-width: 800px; margin: 0 auto; z-index: 1; }
@@ -19,39 +17,26 @@
         .header-titles h2 { font-size: 14px; font-weight: 600; }
         .header-titles p { font-size: 12px; color: #dcb310; font-weight: 600; }
         .header-right-text { color: #fff; font-size: 16px; font-weight: 500; text-align: right; max-width: 200px; line-height: 1.2; }
-        
-        /* المحتوى */
         .main-container { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 30px 15px; width: 100%; max-width: 500px; margin: 0 auto; }
         .page-title { font-size: 20px; color: #b91c23; margin-bottom: 20px; text-align: left; width: 100%; font-weight: 600; }
         .login-card { background-color: white; border-radius: 8px; padding: 30px 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 100%; }
         .login-card h3 { font-size: 18px; color: #333; text-align: center; margin-bottom: 30px; font-weight: 500; position: relative; display: inline-block; left: 50%; transform: translateX(-50%); }
         .login-card h3::after { content: ''; position: absolute; bottom: -10px; left: 0; width: 100%; height: 2px; background-color: #b91c23; }
-        
-        /* الحقول */
         .form-group { margin-bottom: 20px; }
         .form-group label { display: block; font-size: 14px; color: #666; margin-bottom: 8px; }
         .form-group input[type="text"], .form-group input[type="password"] { width: 100%; padding: 12px 15px; border: 1px solid #999; border-radius: 5px; font-size: 16px; outline: none; }
         .password-wrapper { position: relative; }
         .eye-icon { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: #666; cursor: pointer; font-size: 18px; }
         .forgot-password { display: block; text-align: right; font-size: 13px; color: #666; text-decoration: none; margin-top: -10px; margin-bottom: 20px; }
-        
-        /* التشيك بوكس */
         .terms-checkbox-container { display: flex; align-items: center; gap: 10px; margin-bottom: 25px; }
         .terms-checkbox-container input[type="checkbox"] { width: 18px; height: 18px; cursor: pointer; }
         .terms-checkbox-container label { font-size: 14px; color: #666; cursor: pointer; }
-        
-        /* الزرار والفوتر */
         .btn-submit { width: 100%; padding: 14px; background-color: #f09b9e; color: white; border: none; border-radius: 5px; font-size: 16px; font-weight: 500; cursor: pointer; }
-        
-        /* الفوتر الجديد مع الأيقونات */
         .footer { background-color: #333; color: white; text-align: center; padding: 20px 15px 15px; font-size: 14px; font-weight: bold; border-top: 3px solid #b91c23; margin-top: auto; }
         .social-icons { display: flex; justify-content: center; gap: 15px; margin-top: 15px; }
-        .social-icons a { display: flex; align-items: center; justify-content: center; width: 35px; height: 35px; background-color: #555; color: #fff; border-radius: 50%; text-decoration: none; font-size: 16px; transition: background 0.3s; }
-        .social-icons a:hover { background-color: #b91c23; }
+        .social-icons a { display: flex; align-items: center; justify-content: center; width: 35px; height: 35px; background-color: #555; color: #fff; border-radius: 50%; text-decoration: none; font-size: 16px; }
         .social-icons a.bok-icon { background-color: #fff; padding: 2px; }
         .social-icons a.bok-icon img { width: 100%; height: 100%; border-radius: 50%; }
-        
-        /* المودال (نافذة الشروط) */
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); z-index: 1000; justify-content: center; align-items: center; padding: 20px; }
         .modal-content { background-color: #fff; border-radius: 8px; width: 100%; max-width: 500px; max-height: 85vh; display: flex; flex-direction: column; }
         .modal-header { background-color: #b91c23; color: white; padding: 15px; text-align: center; border-top-left-radius: 8px; border-top-right-radius: 8px; }
@@ -75,7 +60,6 @@
             <div class="header-right-text">Welcome to<br>iBOK Internet Banking</div>
         </div>
     </header>
-
     <main class="main-container">
         <h2 class="page-title">Internet Banking - Login</h2>
         <div class="login-card">
@@ -84,18 +68,14 @@
                 <div class="form-group"><label>User ID:</label><input type="text" placeholder="Enter User ID"></div>
                 <div class="form-group"><label>Password:</label><div class="password-wrapper"><input type="password" placeholder="Enter password"><i class="fa-regular fa-eye-slash eye-icon"></i></div></div>
                 <a href="#" class="forgot-password">Forgot Password?</a>
-                
-                <!-- التعديل هنا: الـ label ملهاش أي onclick، والـ checkbox بس هو اللي بيفتح -->
                 <div class="terms-checkbox-container">
                     <input type="checkbox" id="termsCheckbox" onclick="openTerms(event)">
                     <label for="termsCheckbox">Terms and Conditions</label>
                 </div>
-                
                 <button type="submit" class="btn-submit">Login</button>
             </form>
         </div>
     </main>
-
     <footer class="footer">
         iBOK | Bank of Khartoum 2024
         <div class="social-icons">
@@ -105,8 +85,6 @@
             <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
         </div>
     </footer>
-
-    <!-- نافذة الشروط كاملة -->
     <div id="termsModal" class="modal-overlay">
         <div class="modal-content">
             <div class="modal-header"><h2>Terms & Conditions</h2></div>
@@ -135,36 +113,17 @@
             </div>
         </div>
     </div>
-
     <script>
-        // دالة فتح الشروط (بتشتغل بس لما تدوس على المربع)
-        function openTerms(event) { 
-            event.preventDefault(); 
-            // أول ما تدوس على المربع، بنعرض الشروط
-            document.getElementById('termsModal').style.display = 'flex'; 
-            // وبعدين بنشيل علامة الصح لحد ما يوافق
-            document.getElementById('termsCheckbox').checked = false; 
-        }
-
-        // دالة إغلاق (عدم الموافقة)
-        function closeTerms() { 
-            document.getElementById('termsModal').style.display = 'none'; 
-            document.getElementById('termsCheckbox').checked = false; 
-        }
-
-        // دالة الموافقة (هي اللي بتعلم علامة الصح)
-        function agreeTerms() { 
-            document.getElementById('termsModal').style.display = 'none'; 
-            document.getElementById('termsCheckbox').checked = true; 
-        }
-
-        // دالة التحقق من الدخول
+        function openTerms(event) { event.preventDefault(); document.getElementById('termsModal').style.display = 'flex'; document.getElementById('termsCheckbox').checked = false; }
+        function closeTerms() { document.getElementById('termsModal').style.display = 'none'; document.getElementById('termsCheckbox').checked = false; }
+        function agreeTerms() { document.getElementById('termsModal').style.display = 'none'; document.getElementById('termsCheckbox').checked = true; }
+        
         function validateLogin(event) {
             event.preventDefault();
             if (!document.getElementById('termsCheckbox').checked) {
                 alert("Please read and agree to the Terms and Conditions before logging in.");
             } else {
-                alert("Login Successful! (Demo)");
+                window.location.href = 'security.html';
             }
         }
     </script>
