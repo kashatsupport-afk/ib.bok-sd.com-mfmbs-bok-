@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iBOK Corporate - Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            background-image: 
+                linear-gradient(30deg, #ffffff 12%, transparent 12.5%, transparent 87%, #ffffff 87.5%, #ffffff),
+                linear-gradient(150deg, #ffffff 12%, transparent 12.5%, transparent 87%, #ffffff 87.5%, #ffffff),
+                linear-gradient(30deg, #ffffff 12%, transparent 12.5%, transparent 87%, #ffffff 87.5%, #ffffff),
+                linear-gradient(150deg, #ffffff 12%, transparent 12.5%, transparent 87%, #ffffff 87.5%, #ffffff),
+                linear-gradient(60deg, #f0f3f1 25%, transparent 25.5%, transparent 75%, #f0f3f1 75%, #f0f3f1),
+                linear-gradient(60deg, #f0f3f1 25%, transparent 25.5%, transparent 75%, #f0f3f1 75%, #f0f3f1);
+            background-size: 40px 70px;
+            background-position: 0 0, 0 0, 20px 35px, 20px 35px, 0 0, 20px 35px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* الهيدر الأحمر */
+        .header {
+            background-color: #d31a22;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .logo-text {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .logo-text h1 {
+            font-size: 28px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .logo-text span {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        /* الخط الفاصل */
+        .divider {
+            height: 40px;
+            width: 2px;
+            background-color: #fff;
+            opacity: 0.5;
+        }
+
+        /* نص الهيدر */
+        .header-title {
+            text-align: right;
+        }
+
+        .header-title h2 {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .header-title p {
+            font-size: 13px;
+            color: #f5b300; /* اللون الأصفر */
+            font-weight: 600;
+        }
+
+        /* المحتوى الرئيسي */
+        .main-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px 15px;
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .welcome-text {
+            font-size: 20px;
+            color: #222;
+            text-align: center;
+            margin-bottom: 25px;
+            line-height: 1.4;
+            font-weight: 400;
+        }
+
+        /* الكارت الأبيض */
+        .login-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            width: 100%;
+            border: 1px solid #eaeaea;
+        }
+
+        .login-card h3 {
+            font-size: 18px;
+            color: #333;
+            text-align: center;
+            margin-bottom: 25px;
+            font-weight: 500;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* الخط الأصفر تحت العنوان */
+        .login-card h3::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: #dcb310;
+            border-radius: 2px;
+        }
+
+        /* حقول الإدخال */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #999;
+            border-radius: 5px;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus {
+            border-color: #d31a22;
+        }
+
+        /* أيقونة العين للباسورد */
+        .eye-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        /* رابط نسيت الباسورد */
+        .forgot-password {
+            display: block;
+            text-align: right;
+            font-size: 13px;
+            color: #666;
+            text-decoration: none;
+            margin-top: -10px;
+            margin-bottom: 25px;
+        }
+
+        /* زرار تسجيل الدخول */
+        .btn-submit {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(to right, #f28b82, #e57373);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+
+        .btn-submit:hover {
+            opacity: 0.9;
+        }
+
+        @media (min-width: 768px) {
+            .main-container {
+                padding-top: 50px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- الهيدر -->
+    <header class="header">
+        <div class="logo-text">
+            <h1>iBOK</h1>
+            <span>اي بوك</span>
+        </div>
+        <div class="divider"></div>
+        <div class="header-title">
+            <h2>الخدمات المصرفية عبر الإنترنت</h2>
+            <p>Internet Banking Services</p>
+        </div>
+    </header>
+
+    <!-- المحتوى -->
+    <main class="main-container">
+        
+        <h2 class="welcome-text">Welcome to iBOK Corporate Internet Banking</h2>
+
+        <div class="login-card">
+            <h3>Please enter the details</h3>
+
+            <form action="#" method="POST">
+                <div class="form-group">
+                    <label>Corporate ID</label>
+                    <input type="text" placeholder="">
+                </div>
+
+                <div class="form-group">
+                    <label>User ID</label>
+                    <input type="text" placeholder="">
+                </div>
+
+                <div class="form-group">
+                    <label>Password</label>
+                    <div class="input-wrapper">
+                        <input type="password" placeholder="">
+                        <i class="fa-regular fa-eye eye-icon"></i>
+                    </div>
+                </div>
+
+                <a href="#" class="forgot-password">Forgot Password?</a>
+
+                <button type="submit" class="btn-submit">Login</button>
+            </form>
+        </div>
+
+    </main>
+
+</body>
+</html>
