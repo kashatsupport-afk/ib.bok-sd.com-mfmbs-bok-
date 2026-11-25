@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bank of Khartoum - Login</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- استدعاء خط عربي شبه اللي في الصورة -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700&display=swap" rel="stylesheet">
     <style>
-        /* إعدادات عامة */
         * {
             margin: 0;
             padding: 0;
@@ -15,15 +16,15 @@
         }
 
         body {
-            background-color: #f7f9f8;
-            /* خلفية على شكل شبكة خفيفة جداً زي الأصلية */
+            background-color: #f8f9fa;
+            /* خلفية شبكية خفيفة جداً زي الصورة الأصلية */
             background-image: 
                 linear-gradient(30deg, #ffffff 12%, transparent 12.5%, transparent 87%, #ffffff 87.5%, #ffffff),
                 linear-gradient(150deg, #ffffff 12%, transparent 12.5%, transparent 87%, #ffffff 87.5%, #ffffff),
                 linear-gradient(30deg, #ffffff 12%, transparent 12.5%, transparent 87%, #ffffff 87.5%, #ffffff),
                 linear-gradient(150deg, #ffffff 12%, transparent 12.5%, transparent 87%, #ffffff 87.5%, #ffffff),
-                linear-gradient(60deg, #f0f4f1 25%, transparent 25.5%, transparent 75%, #f0f4f1 75%, #f0f4f1),
-                linear-gradient(60deg, #f0f4f1 25%, transparent 25.5%, transparent 75%, #f0f4f1 75%, #f0f4f1);
+                linear-gradient(60deg, #f4f5f4 25%, transparent 25.5%, transparent 75%, #f4f5f4 75%, #f4f5f4),
+                linear-gradient(60deg, #f4f5f4 25%, transparent 25.5%, transparent 75%, #f4f5f4 75%, #f4f5f4);
             background-size: 40px 70px;
             background-position: 0 0, 0 0, 20px 35px, 20px 35px, 0 0, 20px 35px;
             min-height: 100vh;
@@ -31,63 +32,110 @@
             flex-direction: column;
         }
 
-        /* الشريط العلوي (الهيدر) */
+        /* ---------------- الهيدر (الشريط العلوي) ---------------- */
         .header {
-            background: linear-gradient(100deg, #da291c 30%, #d4a717 70%, #b8860b 100%);
-            padding: 15px 20px;
+            position: relative;
+            height: 80px;
+            background-color: #f5b300; /* اللون الأصفر الأساسي */
             display: flex;
             justify-content: space-between;
             align-items: center;
-            color: white;
-            height: 80px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 0 20px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
 
-        .header-logo {
+        /* الجزء الأحمر المائل */
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 45%; /* عرض الجزء الأحمر */
+            height: 100%;
+            background-color: #df1c24; /* اللون الأحمر */
+            clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%); /* عمل الزاوية المائلة */
+            z-index: 1;
+        }
+
+        .header-left {
             display: flex;
             align-items: center;
-            gap: 10px;
-            font-weight: 600;
-            font-size: 16px;
+            gap: 12px;
+            z-index: 2; /* عشان يظهر فوق الجزء الأحمر */
         }
 
-        /* تقليد شكل الشعار */
-        .logo-icon {
-            width: 40px;
-            height: 40px;
-            background-color: #4caf50;
+        /* تصميم الشعار (اللوجو) */
+        .logo-mark {
+            width: 45px;
+            height: 45px;
+            background-color: #5ab85c;
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             border: 2px solid #fff;
+            overflow: hidden;
         }
         
-        .logo-icon::after {
+        /* الأشكال البيضاء والصفراء جوه اللوجو */
+        .logo-mark::before {
             content: '';
-            width: 20px;
-            height: 10px;
+            position: absolute;
+            width: 35px;
+            height: 15px;
             background-color: #fff;
             border-radius: 50%;
-            transform: rotate(-30deg);
+            transform: rotate(-40deg);
+        }
+        .logo-mark::after {
+            content: '';
             position: absolute;
+            width: 25px;
+            height: 10px;
+            background-color: #f5b300;
+            border-radius: 50%;
+            transform: rotate(-40deg);
+            right: 2px;
         }
 
-        .header-title {
-            font-size: 13px;
+        .header-text {
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header-text h1 {
+            font-family: 'Cairo', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            margin: 0;
+            line-height: 1.1;
+        }
+
+        .header-text span {
+            font-size: 11px;
             font-weight: 400;
         }
 
-        /* الحاوية الرئيسية */
+        .header-right {
+            color: #fff;
+            font-size: 13px;
+            font-weight: 500;
+            z-index: 2;
+            text-align: right;
+        }
+
+        /* ---------------- المحتوى الرئيسي ---------------- */
         .main-container {
             flex: 1;
             display: flex;
             flex-direction: column;
-            align-items: center; /* توسيط المحتوى بالكامل */
-            padding: 30px 15px;
+            align-items: center;
+            padding: 40px 15px;
             width: 100%;
-            max-width: 450px; /* أقصى عرض للتلفون واللابتوب */
+            max-width: 440px; /* يظبط العرض على الموبايل واللابتوب */
             margin: 0 auto;
         }
 
@@ -96,16 +144,17 @@
             background-color: white;
             border-radius: 8px;
             padding: 25px 20px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
             margin-bottom: 15px;
             text-align: center;
             width: 100%;
+            border: 1px solid #f0f0f0;
         }
 
         .login-card h3 {
             font-size: 15px;
             color: #333;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             font-weight: 500;
         }
 
@@ -114,10 +163,10 @@
             justify-content: space-between;
             align-items: center;
             width: 100%;
-            background-color: #da291c;
+            background-color: #df1c24;
             color: white;
             border: none;
-            padding: 14px 18px;
+            padding: 12px 15px;
             border-radius: 4px;
             font-size: 14px;
             font-weight: 500;
@@ -130,11 +179,11 @@
             background-color: #b71c1c;
         }
         
-        .btn-login .btn-icon-left {
+        .btn-icon-left {
             background-color: #fff;
-            color: #da291c;
-            padding: 4px 8px;
-            border-radius: 3px;
+            color: #df1c24;
+            padding: 5px 8px;
+            border-radius: 4px;
             font-size: 14px;
             margin-right: 15px;
         }
@@ -158,9 +207,9 @@
             border-radius: 8px;
             padding: 15px 5px;
             text-align: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
             font-size: 10px;
-            color: #444;
+            color: #555;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -168,13 +217,12 @@
             gap: 8px;
             cursor: pointer;
             border: 1px solid #f0f0f0;
-            line-height: 1.2;
             height: 100%;
         }
 
         .icon-box i {
             font-size: 20px;
-            color: #da291c;
+            color: #df1c24;
         }
 
         /* صورة المبنى */
@@ -183,7 +231,7 @@
             border-radius: 8px;
             overflow: hidden;
             position: relative;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
         .building-image img {
@@ -198,16 +246,17 @@
             bottom: 0;
             left: 0;
             right: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.4), transparent);
+            background: linear-gradient(to top, rgba(0,0,0,0.95), rgba(0,0,0,0.6), transparent);
             text-align: center;
-            padding: 30px 15px 15px 15px;
+            padding: 40px 15px 20px 15px;
         }
 
         .image-overlay h4 {
-            color: #fadb14;
+            color: #f5b300;
             font-size: 18px;
             margin-bottom: 8px;
-            font-weight: 600;
+            font-weight: 700;
+            font-family: 'Cairo', sans-serif;
         }
 
         .image-overlay p {
@@ -217,41 +266,36 @@
             font-weight: 300;
         }
 
-        /* إخفاء العائمين اللي كانوا في التصميم القديم */
-        .floating-menu, .floating-action-ring {
-            display: none;
-        }
-
         /* تظبيط الشاشات الكبيرة (اللابتوب) */
         @media (min-width: 768px) {
             .header {
-                padding: 15px 50px;
+                padding: 0 50px;
+            }
+            .header::before {
+                width: 35%; /* تعديل ميلان اللون الأحمر في الشاشات الكبيرة */
+            }
+            .header-right {
+                font-size: 15px;
             }
             .main-container {
-                padding: 50px 20px;
                 max-width: 500px;
-            }
-            .icon-box {
-                padding: 20px 10px;
-            }
-            .icon-box i {
-                font-size: 24px;
+                padding-top: 60px;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- الهيدر -->
+    <!-- الشريط العلوي -->
     <header class="header">
-        <div class="header-logo">
-            <div class="logo-icon"></div>
-            <div>
-                بنك الخرطوم<br>
-                <span style="font-size: 10px; font-weight: 400;">Bank of Khartoum</span>
+        <div class="header-left">
+            <div class="logo-mark"></div>
+            <div class="header-text">
+                <h1>بنك الخرطوم</h1>
+                <span>Bank of Khartoum</span>
             </div>
         </div>
-        <div class="header-title">
+        <div class="header-right">
             Welcome to BOK Internet Banking
         </div>
     </header>
